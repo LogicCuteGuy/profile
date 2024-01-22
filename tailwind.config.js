@@ -2,8 +2,13 @@
 module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+        adelia: ["Fingercute", "cursive"],
+      },
+    },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 }
 
