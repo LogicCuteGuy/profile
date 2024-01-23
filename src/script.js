@@ -18,3 +18,7 @@ function open_tw() {
 function open_gh() {
     window.open("https://github.com/LogicCuteGuy");
 }
+
+function open_tk() {
+    window.open("https://www.tiktok.com/@logiccuteguy");
+}
