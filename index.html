@@ -12,7 +12,21 @@
 </head>
 
 <body class="relative overflow-x-hidden">
-  <div class="fixed right-3 top-3 z-50 sm:right-5 sm:top-5">
+  <div class="fixed right-3 top-3 z-50 flex items-start gap-2 sm:right-5 sm:top-5">
+    <div class="relative">
+      <button id="donate-toggle" type="button" class="flex h-11 w-11 items-center justify-center rounded-full border border-white/35 bg-slate-900/55 text-white shadow-lg backdrop-blur-md transition hover:bg-slate-900/75" aria-label="Donate" aria-expanded="false" aria-controls="donate-menu">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+          <path d="M12.1 21.35l-1.1-1.02C5.14 14.93 2 12.01 2 8.5A5.5 5.5 0 017.5 3c1.74 0 3.41.81 4.5 2.09A6 6 0 0116.5 3 5.5 5.5 0 0122 8.5c0 3.51-3.14 6.43-8.9 11.83l-1 .92z" />
+        </svg>
+      </button>
+
+      <div id="donate-menu" class="absolute right-0 mt-2 hidden min-w-45 rounded-2xl border border-white/25 bg-slate-900/85 p-2 text-white shadow-xl backdrop-blur-md">
+        <p class="px-3 py-2 text-xs uppercase tracking-[0.2em] text-cyan-100/75" data-i18n="donate">Donate</p>
+        <a href="https://github.com/sponsors/LogicCuteGuy/" target="_blank" rel="noreferrer" class="block w-full rounded-xl px-3 py-2 text-left text-sm hover:bg-white/10" data-i18n="donateGithub">GitHub Sponsors</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeO2i1nT31SJp6B4agHbJSCRx9Kf-gkzsA0jYVz_Gm4gK6nBg/viewform" target="_blank" rel="noreferrer" class="block w-full rounded-xl px-3 py-2 text-left text-sm hover:bg-white/10" data-i18n="donateForm">Donation Form</a>
+      </div>
+    </div>
+
     <div class="relative">
       <button id="lang-toggle" type="button" class="flex h-11 w-11 items-center justify-center rounded-full border border-white/35 bg-slate-900/55 text-white shadow-lg backdrop-blur-md transition hover:bg-slate-900/75" aria-label="Change language" aria-expanded="false" aria-controls="lang-menu">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
@@ -161,6 +175,9 @@
   <script>
     const translations = {
       en: {
+        donate: "Donate",
+        donateGithub: "GitHub Sponsors",
+        donateForm: "Donation Form",
         creatorProfile: "Creator Profile",
         roleLine: "<span class='highlight-word'>Programmer</span> &amp; <span class='highlight-word'>Music Producer</span>",
         intro: "<span class='highlight-word'>Logic</span> making <span class='highlight-word'>music</span> and building as a <span class='highlight-word'>VRC world programmer</span> with <span class='highlight-word'>Rust</span> and <span class='highlight-word'>C#</span>, exploring <span class='highlight-word'>House</span>, <span class='highlight-word'>DNB</span>, <span class='highlight-word'>EDM</span>, and <span class='highlight-word'>botanica</span> through constant music experiments.",
@@ -193,6 +210,9 @@
         tiktokDesc: "Short clips and creator moments."
       },
       th: {
+        donate: "สนับสนุน",
+        donateGithub: "GitHub Sponsors",
+        donateForm: "แบบฟอร์มโดเนท",
         creatorProfile: "โปรไฟล์ครีเอเตอร์",
         roleLine: "<span class='highlight-word'>โปรแกรมเมอร์</span> &amp; <span class='highlight-word'>โปรดิวเซอร์เพลง</span>",
         intro: "<span class='highlight-word'>Logic</span> ทำ<span class='highlight-word'>เพลง</span>และพัฒนาในบทบาท <span class='highlight-word'>โปรแกรมเมอร์โลก VRC</span> ด้วย <span class='highlight-word'>Rust</span> และ <span class='highlight-word'>C#</span> พร้อมทดลองแนว <span class='highlight-word'>House</span>, <span class='highlight-word'>DNB</span>, <span class='highlight-word'>EDM</span> และ <span class='highlight-word'>botanica</span> อย่างต่อเนื่อง.",
@@ -225,6 +245,9 @@
         tiktokDesc: "คลิปสั้นและโมเมนต์ครีเอเตอร์."
       },
       jp: {
+        donate: "支援",
+        donateGithub: "GitHub Sponsors",
+        donateForm: "寄付フォーム",
         creatorProfile: "クリエイタープロフィール",
         roleLine: "<span class='highlight-word'>プログラマー</span> &amp; <span class='highlight-word'>音楽プロデューサー</span>",
         intro: "<span class='highlight-word'>Logic</span> は<span class='highlight-word'>音楽制作</span>をしながら、<span class='highlight-word'>VRCワールドプログラマー</span>として <span class='highlight-word'>Rust</span> と <span class='highlight-word'>C#</span> を使い、<span class='highlight-word'>House</span>・<span class='highlight-word'>DNB</span>・<span class='highlight-word'>EDM</span>・<span class='highlight-word'>botanica</span> を実験的に制作しています。",
@@ -258,6 +281,8 @@
       }
     };
 
+    const donateToggle = document.getElementById('donate-toggle');
+    const donateMenu = document.getElementById('donate-menu');
     const langToggle = document.getElementById('lang-toggle');
     const langMenu = document.getElementById('lang-menu');
     const langButtons = document.querySelectorAll('[data-lang]');
@@ -328,10 +353,20 @@
       scheduleFitPlatformTitles();
     }
 
+    donateToggle.addEventListener('click', () => {
+      const isOpen = !donateMenu.classList.contains('hidden');
+      donateMenu.classList.toggle('hidden', isOpen);
+      donateToggle.setAttribute('aria-expanded', String(!isOpen));
+      langMenu.classList.add('hidden');
+      langToggle.setAttribute('aria-expanded', 'false');
+    });
+
     langToggle.addEventListener('click', () => {
       const isOpen = !langMenu.classList.contains('hidden');
       langMenu.classList.toggle('hidden', isOpen);
       langToggle.setAttribute('aria-expanded', String(!isOpen));
+      donateMenu.classList.add('hidden');
+      donateToggle.setAttribute('aria-expanded', 'false');
     });
 
     langButtons.forEach((button) => {
@@ -342,6 +377,11 @@
       if (!langMenu.contains(event.target) && !langToggle.contains(event.target)) {
         langMenu.classList.add('hidden');
         langToggle.setAttribute('aria-expanded', 'false');
+      }
+
+      if (!donateMenu.contains(event.target) && !donateToggle.contains(event.target)) {
+        donateMenu.classList.add('hidden');
+        donateToggle.setAttribute('aria-expanded', 'false');
       }
     });
 
