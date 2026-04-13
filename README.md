@@ -1,1 +1,9 @@
-Hello i know is so bad css ok and not have responsive :)
+# LogicCuteGuy Profile
+
+Simple static profile page built with Tailwind CSS 4.
+
+## Commands
+
+- `npm install`
+- `npm run dev`
+- `npm run build`
