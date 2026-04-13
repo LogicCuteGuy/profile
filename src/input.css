@@ -29,6 +29,7 @@
 @layer base {
     html {
         color-scheme: light;
+        font-size: 94%;
     }
 
     body {
@@ -39,6 +40,10 @@
             linear-gradient(180deg, rgba(14, 27, 45, 0.18), rgba(8, 15, 25, 0.84)),
             url('img/bg.jpeg') center / cover fixed no-repeat;
         color: #f8fbff;
+    }
+
+    html[lang='th'] body {
+        font-family: 'Mali', cursive;
     }
 
     img {
@@ -100,14 +105,19 @@
         @apply h-16 w-16 shrink-0 overflow-hidden rounded-2xl border-2 border-white/60 bg-white/95 shadow-lg sm:h-18 sm:w-18;
     }
 
+    .platform-title {
+        color: #ffffff;
+        display: block;
+        width: 100%;
+        font-size: 1.95rem;
+        line-height: 1.1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;
+    }
+
     .eyebrow {
         @apply text-xs font-semibold uppercase tracking-[0.35em] text-cyan-100/80 sm:text-sm;
-    }
-}
-
-@layer utilities {
-    .text-stroke {
-        -webkit-text-stroke: 1px rgba(10, 15, 22, 0.95);
     }
 }
 
