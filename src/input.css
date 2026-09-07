@@ -38,7 +38,7 @@
         font-family: 'Gaegu', cursive;
         background:
             linear-gradient(180deg, rgba(14, 27, 45, 0.18), rgba(8, 15, 25, 0.84)),
-            url('img/bg.jpeg') center / cover fixed no-repeat;
+            url('img/bg.png') center / cover fixed no-repeat;
         color: #f8fbff;
     }
 
